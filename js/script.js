@@ -76,17 +76,17 @@ designSelection.addEventListener('change', () => {
     });
 
     /***********Section to Select Activities*****************/
-    
+
     //selecting dom elements and createing new h2 element
     const activitySelection = document.querySelectorAll('.activities input');
-    const activityMain = document.querySelector('.activities');
+    const activity = document.querySelector('.activities');
     let total = 0; 
-    const totalText = document.createElement('h2');
-    totalText.innerHTML = 'Total: 0';
-    activityMain.appendChild(totalText);
+    const text = document.createElement('h2');
+    text.innerHTML = 'Total: 0';
+    activity.appendChild(text);
     
     
-    activityMain.addEventListener('change', (e) => {
+    activity.addEventListener('change', (e) => {
 
         let clicked = e.target;
         let timeSelected = clicked.getAttribute('data-day-and-time');
@@ -110,8 +110,53 @@ designSelection.addEventListener('change', () => {
         } else {
             total = total - price;
         }
-        totalText.textContent = (" Activity Total: $" + total);//outputs total cost of activity
+        text.textContent = (" Total: $" + total);//outputs total cost of activity
+        text.style.color = "blue";
+        text.style.textAlign = "center";
 
     });
 
      /***********End of Section to Select Activities*****************/
+
+     /********************Payment Section****************************/
+
+     //selection of the DOM elements
+     const creditCard = document.querySelector("#credit-card");
+     const paypal = document.querySelector("#paypal ");
+     const bitcoin = document.querySelector("#bitcoin");
+     const payment = document.querySelector("#payment");
+     const paymentMethod = payment.value = "select method";
+     const card = payment.value = "credit card";
+     const selectPayment = payment[0];
+
+     //select card by default
+     card.selected = true;
+     selectPayment.hidden = true;
+     paypal.hidden = true;
+     bitcoin.hidden = true;
+     paymentMethod.hidden = true;
+
+     //event to check what the user selects for payment
+     payment.addEventListener('change', (e) => {
+
+        const type = e.target.value; 
+        if (type === 'credit card') {//if credit card, other form of payment are blocked
+            creditCard.style.display = 'block';
+            payPal.style.display = 'none';
+            bitCoin.style.display = 'none';
+        } else if (type === 'paypal') {//if paypal, other form of payment are blocked
+            creditCard.style.display = 'none';
+            payPal.style.display = 'block';
+            bitCoin.style.display = 'none';
+        } else {//if bitcoin, other form of payment are blocked
+            creditCard.style.display = 'none';
+            payPal.style.display = 'none';
+            bitCoin.style.display = 'block';
+        }
+
+     });
+
+     /***********End of Payment Section*****************/
+
+     /*****************Name Validation******************/ 
+     
