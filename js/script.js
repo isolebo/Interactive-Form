@@ -158,5 +158,54 @@ designSelection.addEventListener('change', () => {
 
      /***********End of Payment Section*****************/
 
-     /*****************Name Validation******************/ 
+     /****************Validation Section***************/ 
      
+     //function to produce error message for incorrect format
+    function producePrompt(message,promptLocation,color){
+        document.getElementById(promptLocation).innerHTML=message;
+        document.getElementById(promptLocation).style.color =color;
+
+
+    }
+    /*****************Name Validation******************/ 
+     //function to validate name
+     function validateName(){
+        var name1 = document.getElementById("name").value;
+        if (name1.length == 0){
+
+            producePrompt("Name is required", "namePrompt","red");
+            return false;
+        }
+        if(!name1.match(/^[a-zA-Z]+ ?[a-zA-Z]+$/))//checks to seeif it is in name format
+        {
+            producePrompt("First and Last Name Please","namePrompt","red");
+            return false;
+        }
+
+        producePrompt("Welcome "+name1,"namePrompt","green");
+        return true;
+     }
+
+    /**********************EmaiL Validation****************/ 
+     function validateEmail(){
+
+        var email2 = document.getElementById("email").value;
+        if (email2.length == 0){
+
+            producePrompt("EMAIL is required", "email2Prompt","red");
+            return false;
+        }
+        if(!email2.match(/[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{3}$/))//checks to if is in email format
+        {
+            producePrompt("Email Please","email2Prompt","red");
+            return false;
+        }
+
+        producePrompt("Welcome "+ email2,"email2Prompt","green");
+        return true;
+     
+     }
+
+
+     
+    
