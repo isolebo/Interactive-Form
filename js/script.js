@@ -165,20 +165,20 @@ designSelection.addEventListener('change', () => {
 
 
     /*****************Name Validation******************/ 
-    const name = document.getElementById('name');
+    const name = document.getElementById('name');//selects the name id
     const labelName = document.querySelector('label[for = "name"]');
-    const nameError = document.createElement('h3');
+    const nameError = document.createElement('h3');//creates a new label just in case theres an error
     labelName.appendChild(nameError);
     nameError.style.color = 'red';
      nameError.innerHTML = "Enter Your Name";
      nameError.hidden= true;
 
 
-    const validateName = () =>{
+    const validateName = () =>{//checks to see if the name is valid
         if(!name.value){
             nameError.hidden = false;
             return false;
-        }else{
+        }else{//returns error message if invalid name
             nameError.hidden = true;
               return true;
 
@@ -186,28 +186,31 @@ designSelection.addEventListener('change', () => {
     }
      name.addEventListener('keyup',validateName);
 
-    // /**********************EmaiL Validation****************/ 
+    /**********************EmaiL Validation****************/ 
     
-    const email = document.getElementById('email');
+    const email = document.getElementById('email');//selects the email id
     const emailLabel = document.querySelector('label[for = "email"]');
-    const emailError = document.createElement('h3');
+    const emailError = document.createElement('h3');//creates a new label just in case theres an error
     emailLabel.appendChild(emailError);
-    emailError.style.color = 'red';
-     emailError.innerHTML = "Enter Your Email";
-     emailError.hidden= true;
+    emailError.style.color = 'red';//error messages in case of invalid email
+    emailError.innerHTML = "Enter Your Email";
+    emailError.hidden= true;
 
-
-    const validateEmail = () =>{
-        if(!email.value){
+    const validateEmail = () =>{//checks to see is email is valid
+        if(!email.value){//if valid nothing happens
             emailError.hidden = false;
             return false;
-        }else{
+        }else{//if invalid email error message is visible
             emailError.hidden = true;
               return true;
-
         }
     }
      email.addEventListener('keyup',validateEmail);
+
+    /**********************EmaiL Validation****************/ 
+
+    const activities = document.querySelector("activities legend");
+
     
 
 
