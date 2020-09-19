@@ -96,7 +96,6 @@ designSelection.addEventListener('change', () => {
             //This variable targets ALL of the attributes in the loop
             const time = activitySelection[i].getAttribute('data-day-and-time'); 
             if (timeSelected  === time && clicked !== activitySelection[i]) {
-            //Here I'm comparing the attribute that has been clicked to all the attributes that have been looped over
             //If the attribute results are equal, the equevalent day/time that has NOT been checked will be disabled
             if (clicked.checked) {     
             activitySelection[i].disabled = true;
@@ -129,7 +128,7 @@ designSelection.addEventListener('change', () => {
      const card = payment.value = "credit card";
      const selectPayment = payment[0];
 
-     //select card by default
+     //select  credit-card by default
      card.selected = true;
      selectPayment.hidden = true;
      paypal.hidden = true;
@@ -207,11 +206,32 @@ designSelection.addEventListener('change', () => {
     }
      email.addEventListener('keyup',validateEmail);
 
-    /**********************EmaiL Validation****************/ 
-
-    const activities = document.querySelector("activities legend");
-
+    /**********************Activity Validation****************/ 
     
+    
+    const activityLabel = document.querySelector(".activities legend");//creates new label at the activity section
+    const activityError = document.createElement("h3");
+    activityError.innerHTML ="Select at least one checkbox";
+    activityError.style.color= "red";
+    activityError.hidden = true;
+    activityLabel.appendChild(activityError);
+
+
+    const activityValidation = () => {
+        for(i = 0; i <activitySelection.length; i++){//checks to see if any activity has been checked, if so, no error message
+        if(activitySelection[i].checked){           
+            activityError.hidden = true;
+            return true;
+        }
+        else{
+            activityError.hidden = false;//display error if no  activity has been selected
+            return false;
+        }
+    }
+    }
+activity.addEventListener("click", activityValidation); //calls function to listen for an click event
+    
+
 
 
      
