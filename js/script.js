@@ -212,7 +212,7 @@ designSelection.addEventListener('change', () => {
     const activityLabel = document.querySelector(".activities legend");//creates new label at the activity section
     const activityError = document.createElement("h3");
     activityError.innerHTML ="Select at least one checkbox";
-    activityError.style.color= "red";
+    activityError.style.backgroundColor= "red";
     activityError.hidden = true;
     activityLabel.appendChild(activityError);
 
@@ -230,9 +230,38 @@ designSelection.addEventListener('change', () => {
     }
     }
 activity.addEventListener("click", activityValidation); //calls function to listen for an click event
+
+/***********************Credit-Card Validation***********************/
+    
+    const creditCard2 = document.querySelector("#credit-card").children[0];
+    const ccInput = document.getElementById("cc-num");
+    const ccError = document.createElement("h3");//creates new element to display error message
+    creditCard2.appendChild(ccError);
+    ccError.innerHTML= "Enter valid Credit Card Number";
+    ccError.hidden = false;
+    ccError.style.backgroundColor= "red";
+
+    const ccValidation = () => {//checks to see if card is valid, if not error meassage is produced
+        let validCard = /^[0-9]{13,16}$/;
+        if(!ccInput.value){
+            ccError.hidden = true;
+            return false;
+        }
+        else if(ccInput.value > 0 && validCard.test(ccInput.value) === false){
+            ccError.hidden = false;
+            return false;
+        }
+        else{
+            ccError.hidden = true;
+            return true;
+        }
+
+    }
+    ccInput.addEventListener("keyup",ccValidation);
+
+
+
     
 
-
-
-     
+    
     
