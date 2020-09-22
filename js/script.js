@@ -1,5 +1,5 @@
 
-//Function sets focus to first text field by default
+// //Function sets focus to first text field by default
 function setDefaultFocus() {
 
     document.getElementById("name").focus()
@@ -39,6 +39,8 @@ const firstIndex = designSelection[0];
 
 const message = document.createElement('h4'); //creates a new element
 message.innerHTML = 'Please select a T-shirt theme';
+message.style.color = "purple";
+message.style.textAlign ="center";
 colorLabel.appendChild(message);
  
 message.hidden = false;// unhides original selection box
@@ -111,7 +113,7 @@ designSelection.addEventListener('change', () => {
         }
         text.textContent = (" Total: $" + total);//outputs total cost of activity
         text.style.color = "blue";
-        text.style.textAlign = "center";
+        
 
     });
 
@@ -159,10 +161,6 @@ designSelection.addEventListener('change', () => {
 
      /****************Validation Section***************/ 
      
-     //function to produce error message for incorrect format
-    
-
-
     /*****************Name Validation******************/ 
     const name = document.getElementById('name');//selects the name id
     const labelName = document.querySelector('label[for = "name"]');
@@ -170,6 +168,7 @@ designSelection.addEventListener('change', () => {
     labelName.appendChild(nameError);
     nameError.style.color = 'red';
      nameError.innerHTML = "Enter Your Name";
+     nameError.style.textAlign = "center";
      nameError.hidden= true;
 
 
@@ -193,6 +192,7 @@ designSelection.addEventListener('change', () => {
     emailLabel.appendChild(emailError);
     emailError.style.color = 'red';//error messages in case of invalid email
     emailError.innerHTML = "Enter Your Email";
+    emailError.style.textAlign = "center";
     emailError.hidden= true;
 
     const validateEmail = () =>{//checks to see is email is valid
@@ -213,6 +213,7 @@ designSelection.addEventListener('change', () => {
     const activityError = document.createElement("h3");
     activityError.innerHTML ="Select at least one checkbox";
     activityError.style.backgroundColor= "red";
+    activityError.style.textAlign= "center";
     activityError.hidden = true;
     activityLabel.appendChild(activityError);
 
@@ -232,17 +233,17 @@ designSelection.addEventListener('change', () => {
 activity.addEventListener("click", activityValidation); //calls function to listen for an click event
 
 /***********************Credit-Card Validation***********************/
-    
+
     const creditCard2 = document.querySelector("#credit-card").children[0];
     const ccInput = document.getElementById("cc-num");
     const ccError = document.createElement("h3");//creates new element to display error message
     creditCard2.appendChild(ccError);
     ccError.innerHTML= "Enter valid Credit Card Number";
-    ccError.hidden = false;
+    ccError.hidden = true;
     ccError.style.backgroundColor= "red";
 
     const ccValidation = () => {//checks to see if card is valid, if not error meassage is produced
-        let validCard = /^[0-9]{13,16}$/;
+        let validCard = /^\d{13,16}$/;
         if(!ccInput.value){
             ccError.hidden = true;
             return false;
@@ -260,8 +261,94 @@ activity.addEventListener("click", activityValidation); //calls function to list
     ccInput.addEventListener("keyup",ccValidation);
 
 
+ /***********************Zip Code Validation***********************/
+   
+
+    const zipVal = document.querySelector("#credit-card").children[1];
+    const zipInput = document.getElementById("zip");
+    const zipLabel = document.querySelectorAll(".zip label");//creates new element to display error message
+    const zipError = document.createElement('h3');
+    zipVal.appendChild(zipError);
+    zipError.innerHTML= "Enter valid zipcode";//error message to be displayed if invalid zipcode
+    zipError.hidden = true;
+    zipError.style.backgroundColor= "red";
+
+    const zipValidation = () => {//checks to see if zip code is valid, if not error meassage is produced
+        let zipCard = /^\d{5}$/;
+        if(!zipInput.value){//if input value matches zipCard then no error
+            zipError.hidden = true;
+            return false;
+        }
+        else if(zipInput.value > 0 && zipCard.test(zipInput.value) === false){
+            zipError.hidden = false;
+            return false;
+        }
+        else{
+            zipError.hidden = true;
+            return true;
+        }
+
+    }
+    zipInput.addEventListener("keyup",zipValidation);
+
+    /***********************CVV Validation***********************/
+
+
+    const cvvVal = document.querySelector("#credit-card").children[2];
+    const cvvInput = document.getElementById("zip");
+    const cvvLabel = document.querySelectorAll(".zip label");//creates new element to display error message
+    const cvvError = document.createElement('h3');
+    cvvVal.appendChild(cvvError);
+    cvvError.innerHTML= "Enter valid cvv";
+    cvvError.hidden = true;
+    cvvError.style.backgroundColor= "red";
+
+    const cvvValidation = () => {//checks to see if cvv number is valid, if not error meassage is produced
+        let cvvCard = /^\d{3}$/;
+        if(!cvvInput.value){
+            cvvError.hidden = true;
+            return false;
+        }
+        else if(cvvInput.value > 0 && cvvCard.test(cvvInput.value) === false){
+            cvvError.hidden = false;
+            return false;
+        }
+        else{
+            cvvError.hidden = true;
+            return true;
+        }
+
+    }
+    cvvInput.addEventListener("keyup",cvvValidation);
+
 
     
+    
 
-    
-    
+    const form = document.querySelector('form');
+    //adding an event listener on the for element
+    form.addEventListener('submit', (e) => {
+    //Uses the condition to prevent the default action if anything is incomplete
+    if (!validateName()) {
+        e.preventDefault();
+    }
+    if (!validateEmail()) {
+        e.preventDefault();
+    }
+    if (!activityValidation()) {
+        e.preventDefault();
+    }
+    if (payment.value === 'credit card') {//if all input value matches the format of credit card, no error message to be displayed
+        if (!ccValidation()) {
+            e.preventDefault();
+            ccError.hidden = false;
+            cvvError.hidden = false;
+            zipError.hidden = false;
+            return false;
+             }
+        }
+    });
+
+
+
+
